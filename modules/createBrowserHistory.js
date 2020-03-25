@@ -42,7 +42,6 @@ function createBrowserHistory(props = {}) {
   const needsHashChangeListener = !supportsPopStateOnHashChange();
 
   const {
-    forceRefresh = false,
     getUserConfirmation = getConfirmation,
     keyLength = 6
   } = props;
@@ -149,6 +148,11 @@ function createBrowserHistory(props = {}) {
 
   function createHref(location) {
     return basename + createPath(location);
+  }
+
+  let {forceRefresh = false} = props;
+  const setForceRefresh = forceNextRefresh => {
+    forceRefresh = forceNextRefresh
   }
 
   function push(path, state) {
@@ -320,7 +324,8 @@ function createBrowserHistory(props = {}) {
     goBack,
     goForward,
     block,
-    listen
+    listen,
+    setForceRefresh
   };
 
   return history;
